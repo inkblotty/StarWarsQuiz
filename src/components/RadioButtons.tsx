@@ -36,17 +36,16 @@ const StyledDiv = styled.div`
   };
 `;
 const StyledLabel = styled.label`
-  cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'initial'};
+  cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'pointer'};
   display: flex;
   font-size: ${({ theme }: ThemeProps) => theme.fontSize.main}px;
   justify-content: center;
   margin: 1px auto; /* 1px to allow for focus border */
-  max-width: 300px;
+  max-width: 600px;
   padding: ${({ theme }: ThemeProps) => `${theme.spacingUnit * 2}px ${theme.spacingUnit * 3}px`};
   width: 100%;
 `;
 const StyledRadio = styled.input`
-  cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'initial'};
   height: 0;
   margin: 0;
   opacity: 0;

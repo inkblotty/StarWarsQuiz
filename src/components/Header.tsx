@@ -3,18 +3,34 @@ import styled from 'styled-components';
 import { ThemeProps } from '../lib/helpers';
 
 const StyledHeader = styled.h1`
+  align-items: center;
   background-color: ${({ theme }: ThemeProps) => theme.colors.backgroundColor};
   color: ${({ theme }: ThemeProps) => theme.colors.textColor};
+  display: flex;
   font-size: ${({ theme }: ThemeProps) => theme.fontSize.heading}px;
-  font-family: StarJedi, Verdana, sans-serif;
   margin: 0 0 ${({ theme }: ThemeProps) => theme.spacingUnit * 6}px;
   padding: ${({ theme }: ThemeProps) => `${theme.spacingUnit * 3}px ${theme.spacingUnit * 4}px`};
+  text-transform: uppercase;
+`;
+const StyledSpan = styled.span`
+  text-shadow: -1px 1px 0 ${({ theme }: ThemeProps) => theme.colors.black},
+    1px -1px 0 ${({ theme }: ThemeProps) => theme.colors.black},
+    -1px -1px 0 ${({ theme }: ThemeProps) => theme.colors.black},
+    1px 1px 0 ${({ theme }: ThemeProps) => theme.colors.black}
+  ;
+  color: ${({ theme }: ThemeProps) => theme.colors.yellow};
+  display: inline-block;
+  font-family: StarJedi, Verdana, sans-serif;
+  font-size: 44px;
+  margin-bottom: 6px; /* free font has odd alignment */
+  padding: 0 ${({ theme }: ThemeProps) => theme.spacingUnit * 4}px;
 `;
 type Props = {};
 const Header = (props: Props) => {
   return (
     <StyledHeader>
-      Star Wars Quiz
+      <StyledSpan>Star Wars </StyledSpan>
+      Quiz
     </StyledHeader>
   );
 }

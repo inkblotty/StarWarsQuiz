@@ -1,9 +1,12 @@
 /* STYLE HELPERS */
-export const colors = {
+export const colors : { [key: string]: string } = {
   black: '#000',
+  darkGray: '#3f3f3f',
   green: '#40c1ac',
   lightBlue: '#7edbc5',
+  lightGray: '#bdbdbd',
   lightRed: '#c8102e',
+  medGray: '#808080',
   red: '#900',
   white: '#fff',
   yellow: '#fbe122',
@@ -17,6 +20,7 @@ export interface ThemeProps {
       errorColor: string;
       successColor: string;
       textColor: string;
+      [key: string]: string;
     },
     spacingUnit: number;
     fontSize: {
@@ -34,7 +38,8 @@ export const makeTheme = (dark = false) => ({
       errorColor: colors.lightRed,
       focusColor: dark ? colors.lightRed : colors.lightBlue,
       successColor: colors.green,
-      textColor: dark ? colors.white : colors.black,
+      textColor: dark ? colors.white : colors.darkGray,
+      ...colors,
     },
     spacingUnit: 4,
     fontSize: {
