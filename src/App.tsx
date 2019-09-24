@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import { makeTheme } from './lib/helpers';
 import Header from './components/Header';
 import RadioButtons from './components/RadioButtons';
+
+const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: StarJedi;
+    src: local('StarJedi'), ur;(./assets/Starjedi.ttf) format('truetype');
+  };
+  body: {
+    font-family: Verdana;
+    margin: 0px;
+  };
+`;
 
 function App() {
   const [darkSideMode] = useState(true);
@@ -13,7 +24,7 @@ function App() {
 
   return (
     <ThemeProvider theme={AppTheme}>
-      <div>
+      <React.Fragment>
         <Header />
         <RadioButtons
           label='Question'
@@ -23,7 +34,8 @@ function App() {
             { name: 'opt-2', label: 'False' },
           ]}
         />
-      </div>
+        <GlobalStyles />
+      </React.Fragment>
     </ThemeProvider>
   );
 }

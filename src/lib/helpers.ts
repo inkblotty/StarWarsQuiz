@@ -38,10 +38,10 @@ export const makeTheme = (dark = false) => ({
     },
     spacingUnit: 4,
     fontSize: {
-      heading: 24,
-      main: 18,
-      small: 14,
-      subheading: 22,
+      heading: 32,
+      main: 20,
+      small: 12,
+      subheading: 24,
     },
   }
 });
