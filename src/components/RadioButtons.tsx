@@ -14,7 +14,6 @@ interface Props {
   }[];
   value?: string | number;
 };
-type AllProps = Props & ThemeProps;
 
 const StyledFieldset = styled.fieldset`
   border: none;
@@ -56,26 +55,23 @@ const StyledRadio = styled.input`
     outline: none;
   };
 `;
-const RadioButtons = ({ options, theme, value, ...props }: AllProps) => {
+const RadioButtons = ({ options, value, ...props }: Props) => {
   return (
-    <StyledFieldset theme={theme}>
-      <StyledLegend theme={theme}>{props.label}</StyledLegend>
+    <StyledFieldset>
+      <StyledLegend>{props.label}</StyledLegend>
       {options.map((opt, i) => (
         <StyledDiv
           key={`${props.name}-radio-opt-${i}`}
-          theme={theme}
         >
           <StyledLabel
             disabled={props.disabled}
             htmlFor={opt.name}
-            theme={theme}
           >
             <StyledRadio
               aria-disabled={props.disabled}
               aria-invalid={props.errored}
               disabled={props.disabled}
               checked={opt.name === value}
-              theme={theme}
               type='radio'
             />
             {opt.label}
