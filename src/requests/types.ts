@@ -1,0 +1,23 @@
+export interface SwapiFilm {
+  title: string;
+  index: number;
+}
+
+export interface SwapiPerson {
+  name: string; 
+  height: string;
+  mass: string; 
+  'hair_color': string;
+  'skin_color': string;
+  'eye_color': string;
+  'birth_year': string;
+  gender: 'male' | 'female' | 'string';
+  homeworld: string, 
+  films: string[];
+  species: string[];
+  vehicles?: string[];
+  starships?: string[];
+  created: string;
+  edited: string;
+  url: string;
+}

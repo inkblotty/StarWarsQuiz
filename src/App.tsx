@@ -23,7 +23,6 @@ function App() {
   const [darkSideMode] = useState(false);
 
   const { theme: AppTheme } = makeTheme(darkSideMode);
-  console.log('AppTheme: ', AppTheme);
 
   return (
     <ThemeProvider theme={AppTheme}>

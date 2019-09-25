@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SwapiFilm, SwapiPerson } from './types';
 
 const API_BASE = 'https://swapi.co/api';
 
@@ -11,11 +12,7 @@ export const getTotalPeople = async () : Promise<number> => {
   }
 }
 
-export interface SwapiFilm {
-  title: string;
-  index: number;
-}
-export const getAllFilmsWithId = async () : Promise<SwapiFilm[]> => {
+export const getAllFilmsWithIdx = async () : Promise<SwapiFilm[]> => {
   try {
     const films : { results: SwapiFilm[] } = await axios.get(`${API_BASE}/films`);
     return films.results.map((film, index) => ({ title: film.title, index }));
@@ -24,24 +21,6 @@ export const getAllFilmsWithId = async () : Promise<SwapiFilm[]> => {
   }
 }
 
-export interface SwapiPerson {
-  name: string; 
-  height: string;
-  mass: string; 
-  'hair_color': string;
-  'skin_color': string;
-  'eye_color': string;
-  'birth_year': string;
-  gender: 'male' | 'female' | 'string';
-  homeworld: string, 
-  films: string[];
-  species: string[];
-  vehicles?: string[];
-  starships?: string[];
-  created: string;
-  edited: string;
-  url: string;
-}
 export const getPerson = async (id: number) : Promise<SwapiPerson> => {
   if (!id) {
     throw new Error('Must provide ID to get person.');
