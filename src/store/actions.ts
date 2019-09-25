@@ -1,6 +1,6 @@
-import { QuizState, SingleActionField, SingleQuizField } from './types';
+import { QuizState, SingleAnswerField, SingleQuizField, QuizAction } from './types';
 
-export const initQuiz = (configObj : QuizState) => {
+export const initQuiz = (configObj : QuizState) : QuizAction => {
   if (!configObj || Array.isArray(configObj) || (typeof configObj !== 'object')) {
     throw new Error('Invalid config object.');
   }
@@ -10,7 +10,7 @@ export const initQuiz = (configObj : QuizState) => {
   };
 };
 
-export const answerQuizQuestion = ({ correctAnswer } : SingleQuizField, { value, key } : SingleActionField) => {
+export const answerQuizQuestion = ({ correctAnswer } : SingleQuizField, { value, key } : SingleAnswerField) : QuizAction => {
   const required = [correctAnswer, key, value];
   if (!correctAnswer || !key || !value) {
     const missingRequired : string[] = [];

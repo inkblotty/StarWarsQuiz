@@ -13,14 +13,14 @@ export interface SingleQuizField {
 export interface QuizState {
   [key: string]: SingleQuizField;
 };
-export interface SingleActionField {
+export interface SingleAnswerField {
   errored?: boolean;
   key: string;
   value?: string;
 };
 export interface QuizAction {
   quizData?: QuizState;
-  field?: SingleActionField;
+  field?: SingleAnswerField;
   type: 'init' | 'error' | 'success';
 };
 

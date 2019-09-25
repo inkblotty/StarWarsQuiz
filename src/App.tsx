@@ -14,6 +14,7 @@ const GlobalStyles = createGlobalStyle`
   };
   #root {
     background: ${({ theme }: ThemeProps) => `${theme.colors.backgroundColor} url('${theme.backgroundImage}')`};
+    background-position: center;
     background-size: cover;
     height: 100vh;
   }
