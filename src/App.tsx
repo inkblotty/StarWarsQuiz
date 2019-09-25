@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import { makeTheme, ThemeProps } from './lib/helpers';
+import { makeTheme, ThemeProps } from './lib/theme';
 import Header from './components/Header';
 import RadioButtons from './components/RadioButtons';
 

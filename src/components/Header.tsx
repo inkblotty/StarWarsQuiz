@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeProps } from '../lib/helpers';
+import { ThemeProps } from '../lib/theme';
 
 const StyledHeader = styled.h1`
   align-items: center;

@@ -3,9 +3,8 @@ export interface SingleQuizField {
   errored?: boolean;
   label: string;
   name: string;
-  options?: {
+  options: {
     label: string;
-    name: string;
     value: string;
   }[];
   value?: string;

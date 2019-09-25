@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ThemeProps } from '../lib/helpers';
+import { ThemeProps } from '../lib/theme';
 
 interface Props {
   disabled?: boolean;

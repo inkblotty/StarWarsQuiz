@@ -1,4 +1,4 @@
-import { SwapiFilm, SwapiPerson } from "./swapi";
+import { SwapiFilm, SwapiPerson } from './types';
 
 export const formatPersonWithFilms = (person : SwapiPerson, films : SwapiFilm[]) => {
   return {
