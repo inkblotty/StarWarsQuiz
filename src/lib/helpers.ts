@@ -14,6 +14,7 @@ export const colors : { [key: string]: string } = {
 
 export interface ThemeProps {
   theme: {
+    backgroundImage: string;
     colors: {
       backgroundColor: string;
       focusColor: string;
@@ -33,6 +34,9 @@ export interface ThemeProps {
 };
 export const makeTheme = (dark = false) => ({
   theme: {
+    backgroundImage: dark
+      ? 'http://www.sompaisoscatalans.cat/simage/182/1829981/star-wars-flat-wallpaper.png'
+      : 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/5bff4614711385.56287ebd2a58e.jpg',
     colors: {
       backgroundColor: dark ? colors.black : colors.white,
       errorColor: colors.lightRed,

@@ -25,6 +25,17 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Star Wars Quiz</title>
+    
+    <!-- Style should normally be all in css files,
+      but ejecting create-react-app
+      for access to webpack is outside scope of this little project
+    -->
+    <style>
+      @font-face {
+        font-family: 'StarJedi';
+        src: local('StarJedi'), url('./assets/Starjedi.ttf') format('truetype');
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

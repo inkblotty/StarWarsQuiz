@@ -11,7 +11,7 @@ export const getTotalPeople = async () : Promise<number> => {
   }
 }
 
-interface SwapiFilm {
+export interface SwapiFilm {
   title: string;
   index: number;
 }
@@ -42,7 +42,7 @@ export interface SwapiPerson {
   edited: string;
   url: string;
 }
-export const getPerson = async (id) : Promise<SwapiPerson> => {
+export const getPerson = async (id: number) : Promise<SwapiPerson> => {
   if (!id) {
     throw new Error('Must provide ID to get person.');
   }

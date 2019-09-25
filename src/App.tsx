@@ -6,17 +6,17 @@ import Header from './components/Header';
 import RadioButtons from './components/RadioButtons';
 
 const GlobalStyles = createGlobalStyle`
-  @font-face {
-    font-family: 'StarJedi';
-    src: local('StarJedi'), url('./assets/Starjedi.ttf') format('truetype');
-  }
   * {
-    background-color: ${({ theme }: ThemeProps) => theme.colors.backgroundColor};
     color: ${({ theme }: ThemeProps) => theme.colors.textColor};
     font-family: Verdana;
     margin: 0px;
     padding: 0px;
   };
+  #root {
+    background: ${({ theme }: ThemeProps) => `${theme.colors.backgroundColor} url('${theme.backgroundImage}')`};
+    background-size: cover;
+    height: 100vh;
+  }
 `;
 
 function App() {
