@@ -39,7 +39,7 @@ const StyledLabel = styled.label`
 const SwitchLabel = styled.span`
   background-color: ${({ theme, itemProp }) => itemProp === 'false' ? theme.colors.disabledColor : theme.colors.yellow};
   border-radius: ${switchHeight}px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+  box-shadow: ${({ itemProp }) => itemProp === 'false' ? 'inset 0 0 5px rgba(0,0,0,0.5)' : 'none'};
   display: inline-block;
   height: ${switchHeight}px;
   justify-content: flex-start;

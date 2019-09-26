@@ -42,8 +42,6 @@ const generateQuiz = async (numQuestions = 10) => {
     // format each person as a question
     const questions = people.map((person : any) => turnPersonIntoQuestion(person, films));
 
-    console.log(questions);
-
     return {
       films,
       questions,
