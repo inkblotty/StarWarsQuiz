@@ -2,7 +2,7 @@ import {
   act,
   renderHook
 } from '@testing-library/react-hooks';
-import QuizHandler from '../components/QuizHandler';
+import QuizHandler from '../store/QuizHandler';
 
 const dummyQuizState = {
   q1: {
