@@ -17,6 +17,7 @@ export interface ThemeProps {
     backgroundImage: string;
     colors: {
       backgroundColor: string;
+      disabledColor: string;
       focusColor: string;
       errorColor: string;
       successColor: string;
@@ -39,6 +40,7 @@ export const makeTheme = (dark = false) => ({
       : 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/5bff4614711385.56287ebd2a58e.jpg',
     colors: {
       backgroundColor: dark ? colors.black : colors.white,
+      disabledColor: dark ? colors.darkGray : colors.lightGray,
       errorColor: colors.lightRed,
       focusColor: dark ? colors.lightRed : colors.lightBlue,
       successColor: colors.green,

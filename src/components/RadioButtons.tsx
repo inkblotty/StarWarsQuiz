@@ -2,17 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ThemeProps } from '../lib/theme';
+import { FormField } from './types';
 
 interface Props {
-  disabled?: boolean;
-  errored?: boolean;
-  label: string;
-  name: string;
-  options: {
-    label: string;
-    name: string;
-  }[];
-  value?: string | number;
+  field: FormField;
+  onChange: (e : Event) => void;
 };
 
 const StyledFieldset = styled.fieldset`
@@ -54,22 +48,23 @@ const StyledRadio = styled.input`
     outline: none;
   };
 `;
-const RadioButtons = ({ options, value, ...props }: Props) => {
+const RadioButtons = ({ field, onChange, ...props }: Props) => {
+  const { disabled, errored, label, name, options = [], value } = field;
   return (
     <StyledFieldset>
-      <StyledLegend>{props.label}</StyledLegend>
+      <StyledLegend>{label}</StyledLegend>
       {options.map((opt, i) => (
         <StyledDiv
-          key={`${props.name}-radio-opt-${i}`}
+          key={`${name}-radio-opt-${i}`}
         >
           <StyledLabel
-            disabled={props.disabled}
+            disabled={disabled}
             htmlFor={opt.name}
           >
             <StyledRadio
-              aria-disabled={props.disabled}
-              aria-invalid={props.errored}
-              disabled={props.disabled}
+              aria-disabled={disabled}
+              aria-invalid={errored}
+              disabled={disabled}
               checked={opt.name === value}
               type='radio'
             />

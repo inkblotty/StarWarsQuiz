@@ -15,10 +15,10 @@ const StyledHeader = styled.h1`
   };
 `;
 const StyledSpan = styled.span`
-  text-shadow: -1px 1px 0 ${({ theme }: ThemeProps) => theme.colors.black},
-    1px -1px 0 ${({ theme }: ThemeProps) => theme.colors.black},
-    -1px -1px 0 ${({ theme }: ThemeProps) => theme.colors.black},
-    1px 1px 0 ${({ theme }: ThemeProps) => theme.colors.black}
+  text-shadow: -2px 2px 0 ${({ theme }: ThemeProps) => theme.colors.black},
+    2px -2px 0 ${({ theme }: ThemeProps) => theme.colors.black},
+    -2px -2px 0 ${({ theme }: ThemeProps) => theme.colors.black},
+    2px 2px 0 ${({ theme }: ThemeProps) => theme.colors.black}
   ;
   color: ${({ theme }: ThemeProps) => theme.colors.yellow};
   display: inline-block;
