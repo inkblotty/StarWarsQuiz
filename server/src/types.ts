@@ -1,9 +1,9 @@
 export interface SwapiFilm {
   title: string;
-  index: number;
+  id: number;
 }
 
-export interface SwapiPerson {
+interface OriginSwapiPerson {
   name: string; 
   height: string;
   mass: string; 
@@ -12,12 +12,19 @@ export interface SwapiPerson {
   'eye_color': string;
   'birth_year': string;
   gender: 'male' | 'female' | 'string';
-  homeworld: string, 
-  films: string[];
+  homeworld: string,
   species: string[];
   vehicles?: string[];
   starships?: string[];
   created: string;
   edited: string;
   url: string;
+}
+
+export interface SwapiPersonWithURLFilms extends OriginSwapiPerson {
+  films: string[];
+}
+
+export interface SwapiPerson extends OriginSwapiPerson {
+  films: SwapiFilm[];
 }
