@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import { makeTheme, ThemeProps } from './lib/theme';
 import Header from './components/Header';
-import RadioButtons from './components/RadioButtons';
-import ToggleInput from './components/ToggleInput';
+import Settings from './views/settings';
+import QuizMain from './views/quiz';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -12,6 +12,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: Verdana;
     margin: 0px;
     padding: 0px;
+    -webkit-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
   };
   #root {
     background: ${({ theme }: ThemeProps) => `${theme.colors.backgroundColor} url('${theme.backgroundImage}')`};
@@ -21,6 +23,11 @@ const GlobalStyles = createGlobalStyle`
     -webkit-transition: background-image 0.2s ease-in-out;
     transition: background-image 0.2s ease-in-out;
   }
+`;
+const StyledAppWrapper = styled.div`
+  display: grid;
+  grid-template-rows: 100px minmax(300px, calc(100% - 180px)) 80px;
+  height: 100vh;
 `;
 
 function App() {
@@ -37,19 +44,15 @@ function App() {
 
   return (
     <ThemeProvider theme={AppTheme}>
-      <React.Fragment>
+      <StyledAppWrapper>
         <Header />
-        <ToggleInput
-          field={{
-            name: 'darkSideModeToggle',
-            label: 'Dark Side Mode',
-            value: darkSideMode,
-            type: 'checkbox'
-          }}
-          onChange={forwardDarkSideToggle}
+        <QuizMain />
+        <Settings
+          darkSideMode={darkSideMode}
+          forwardDarkSideToggle={forwardDarkSideToggle}
         />
         <GlobalStyles theme={AppTheme} />
-      </React.Fragment>
+      </StyledAppWrapper>
     </ThemeProvider>
   );
 }

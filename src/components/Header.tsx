@@ -6,7 +6,7 @@ const StyledHeader = styled.h1`
   align-items: center;
   display: flex;
   font-size: ${({ theme }: ThemeProps) => theme.fontSize.heading}px;
-  margin: 0 0 ${({ theme }: ThemeProps) => theme.spacingUnit * 6}px;
+  margin: 0;
   padding: ${({ theme }: ThemeProps) => `${theme.spacingUnit * 3}px ${theme.spacingUnit * 4}px`};
   text-transform: uppercase;
   @media screen and (max-width: 900px) {
