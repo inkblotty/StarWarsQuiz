@@ -7,7 +7,7 @@ import { QuizState, SingleQuizField, SingleAnswerField } from '../store/types';
 const QuizHandler = () => {
   const [quizState, dispatchQuizState] = useReducer(quizReducer, {});
   return {
-    getQuizState: () => quizState,
+    quizState,
     initQuiz: (input : QuizState) => dispatchQuizState(initQuiz(input)),
     answerQuizQuestion: (question : SingleQuizField, answer : SingleAnswerField) => dispatchQuizState(answerQuizQuestion(question, answer)),
   };
