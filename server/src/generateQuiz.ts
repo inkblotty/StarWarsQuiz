@@ -29,7 +29,8 @@ const generateQuiz = async (numQuestions = 10) => {
     // format each person as a question
     const questions = people
       .filter((_person, i) => finalIndices.includes(i))
-      .map((person : any) => turnPersonIntoQuestion(person, films));
+      .map((person : SwapiPersonWithURLFilms) => formatPersonWithFilms(person, films))
+      .map((person : SwapiPerson) => turnPersonIntoQuestion(person, films));
 
     return {
       films,

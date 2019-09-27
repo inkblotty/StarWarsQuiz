@@ -1,6 +1,14 @@
 import { SwapiFilm, SwapiPerson, SwapiPersonWithURLFilms } from './types';
 
-export const formatPersonWithFilms = (person : any, films : SwapiFilm[]) : SwapiPerson => {
+function shuffleArray(array : any[]) {
+  let temp = [...array];
+  for (let i = temp.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [temp[i], temp[j]] = [temp[j], temp[i]];
+  }
+  return temp;
+}
+export const formatPersonWithFilms = (person : SwapiPersonWithURLFilms, films : SwapiFilm[]) : SwapiPerson => {
   if (person.films) {
     const newFilms = person.films.map((film : string) =>
       films.find(x => {
@@ -14,8 +22,12 @@ export const formatPersonWithFilms = (person : any, films : SwapiFilm[]) : Swapi
       ...person,
       films: newFilms,
     };
+  } else {
+    return {
+      ...person,
+      films: [],
+    };
   }
-  return person;
 }
 
 export const turnPersonIntoQuestion = (person : SwapiPerson, films: SwapiFilm[]) => {
@@ -41,10 +53,13 @@ export const turnPersonIntoQuestion = (person : SwapiPerson, films: SwapiFilm[])
     correctAnswer = `film-${person.films[0].id}`;
     return `Which of these films did ${person.name} appear in?`;
   })();
+
+  // randomize options in return
+
   return {
     correctAnswer,
     label,
     name: `${person.name}-question`,
-    options,
+    options: shuffleArray(options),
   }
 }

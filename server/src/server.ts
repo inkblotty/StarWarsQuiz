@@ -31,7 +31,6 @@ app.use(function(req, res, next) {
 app.get('/api/newQuiz', async (req, res) => {
   try {
     const quiz = await generateQuiz();
-    console.log('end quiz: ', quiz.films, quiz.questions.length);
     res.json(quiz);
   } catch (err) {
     console.log(err);

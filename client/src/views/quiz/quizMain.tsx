@@ -17,12 +17,12 @@ const QuizMain = () => {
     try {
       setIsLoading(true);
       const quiz = await getGeneratedQuiz();
-      console.log(quiz);
-      // initQuiz(quiz.data);
+      initQuiz({ ...quiz.data.questions });
       setIsLoading(false);
     } catch (err) {
       console.log(err);
       setError(err.toString());
+      setIsLoading(false);
     }
   }
 
