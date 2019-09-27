@@ -39,6 +39,7 @@ app.get('/api/newQuiz', async (req, res) => {
 });
 app.get('*', (_req, res) => res.json(JSON.parse(JSON.stringify(apiStructure))));
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
 });
+server.timeout = 8000;

@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const size = 30;
 const Arc = styled.div`
   border: 10px solid ${({ theme }) => theme.colors.fontColor};
-  height: 20px;
+  height: ${size}px;
   margin: 6px; /* enough so the points of the square don't overlap nearby content */
-  width: 20px;
+  width: ${size}px;
 
   @keyframes infinite-spinning {
     from {

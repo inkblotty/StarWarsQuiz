@@ -59,13 +59,13 @@ const RadioButtons = ({ field, onChange, ...props }: Props) => {
         >
           <StyledLabel
             disabled={disabled}
-            htmlFor={opt.name}
+            htmlFor={opt.value}
           >
             <StyledRadio
               aria-disabled={disabled}
               aria-invalid={errored}
               disabled={disabled}
-              checked={opt.name === value}
+              checked={opt.value === value}
               type='radio'
             />
             {opt.label}

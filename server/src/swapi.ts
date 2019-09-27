@@ -3,28 +3,30 @@ import { SwapiFilm, SwapiPersonWithURLFilms, SwapiPeopleResponse } from './types
 
 const API_BASE = 'https://swapi.co/api';
 
+  // optimization: save people & films to a db and
+  // only re-query when total people doens't match result in db
+  // or possibly when films list has changed,
+  // as that would change the data relevant to our quiz
+
 export interface AllPeople {
   totalPeople: number;
   people: SwapiPersonWithURLFilms[];
 }
 export const getAllPeople = async () : Promise<AllPeople> => {
-  // optimization: save people to a db and only requery when total people doens't match result in db
-  // or possibly when films list has changed, as that would change the data relevant to our quiz
   try {
     const people : SwapiPersonWithURLFilms[] = [];
-    let next;
     const { data } : { data: SwapiPeopleResponse } = await axios.get(`${API_BASE}/people`);
-    next = data.next;
+    const totalPages = Math.ceil(data.count / data.results.length);
     people.push.apply(people, data.results);
-    while (next) {
-      const { data: moreData } : { data: SwapiPeopleResponse } = await axios.get(next);
-      next = moreData.next;
-      people.push.apply(people, moreData.results);
-    }
-    return {
+    const promArray = Array.from({ length: totalPages }).map(async (_, i) => {
+      const { data: newData } : { data: SwapiPeopleResponse } = await axios.get(`${API_BASE}/people/?page=${i+1}`);
+      people.push.apply(people, newData.results);
+      return true;
+    });
+    return Promise.all(promArray).then(() => ({
       totalPeople: data.count,
       people,
-    };
+    }))
   } catch (err) {
     throw err;
   }
