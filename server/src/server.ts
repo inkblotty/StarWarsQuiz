@@ -29,10 +29,14 @@ app.use(function(req, res, next) {
 });
 
 app.get('/api/newQuiz', async (req, res) => {
-  console.log('requesting quiz');
-  const quiz = await generateQuiz();
-  console.log(quiz);
-  res.json(quiz);
+  try {
+    const quiz = await generateQuiz();
+    console.log('end quiz: ', quiz.films, quiz.questions.length);
+    res.json(quiz);
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
 });
 app.get('*', (_req, res) => res.json(JSON.parse(JSON.stringify(apiStructure))));
 

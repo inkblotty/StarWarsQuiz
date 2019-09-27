@@ -1,13 +1,13 @@
-import { getAllFilmsWithId, getTotalPeople, getPerson } from './swapi';
+import { getAllFilmsWithId, getAllPeople, AllPeople } from './swapi';
 import { formatPersonWithFilms, turnPersonIntoQuestion } from './requestHelpers';
-import { SwapiPerson } from './types';
+import { SwapiPerson, SwapiPersonWithURLFilms } from './types';
 
-const makeRandomNum = (upperLimit : number) => Math.ceil(Math.random() * upperLimit);
+const makeRandomNum = (upperLimit : number) => Math.floor(Math.random() * upperLimit);
 
 const generateQuiz = async (numQuestions = 10) => {
   try {
-    // find total number of people, so random below has limits
-    const totalPeople = await getTotalPeople();
+    // find all people, filter by id below
+    const { totalPeople, people } : AllPeople = await getAllPeople();
 
     // grab all films
     const films = await getAllFilmsWithId();
@@ -26,21 +26,10 @@ const generateQuiz = async (numQuestions = 10) => {
       return a;
     }, []);
 
-    const people : any = await Promise.all(
-      finalIndices.map(async (i : number) : Promise<SwapiPerson> => {
-        // let's space out our request so swapi knows we're nice
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(
-              getPerson(i)
-                .then(person => formatPersonWithFilms(person, films))
-            );
-          }, 1);
-        });
-      }));
-
     // format each person as a question
-    const questions = people.map((person : any) => turnPersonIntoQuestion(person, films));
+    const questions = people
+      .filter((_person, i) => finalIndices.includes(i))
+      .map((person : any) => turnPersonIntoQuestion(person, films));
 
     return {
       films,

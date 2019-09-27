@@ -28,3 +28,9 @@ export interface SwapiPersonWithURLFilms extends OriginSwapiPerson {
 export interface SwapiPerson extends OriginSwapiPerson {
   films: SwapiFilm[];
 }
+
+export interface SwapiPeopleResponse {
+  count: number;
+  next?: string;
+  results: SwapiPersonWithURLFilms[];
+}
