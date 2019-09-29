@@ -4,7 +4,7 @@ export const colors : { [key: string]: string } = {
   darkGray: '#3f3f3f',
   green: '#40c1ac',
   lightBlue: '#7edbc5',
-  lightGray: '#bdbdbd',
+  lightGray: '#d7d7d7',
   lightRed: '#c8102e',
   medGray: '#808080',
   red: '#900',

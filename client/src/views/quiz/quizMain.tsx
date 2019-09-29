@@ -11,11 +11,11 @@ import { SingleQuizField } from '../../store/types';
 import QuizError from './QuizError';
 
 export const StyledButton = styled.button`
-  background-color: ${({ disabled, theme }) => disabled ? theme.colors.lightGray : theme.colors.yellow};
-  border: 2px solid ${({ theme }) => theme.colors.black};
+  background-color: ${({ disabled, theme }) => disabled ? theme.colors.disabledColor : theme.colors.yellow};
+  border: 2px solid ${({ theme }) => theme.colors.black };
   border-radius: 8px;
-  box-shadow: 2px 2px 3px ${({ theme }) => theme.colors.textColor};
-  color: ${({ theme }) => theme.colors.black};
+  box-shadow: ${({ disabled, theme }) => disabled ? 'none' : `2px 2px 3px ${theme.colors.textColor}`};
+  color: ${({ disabled, theme }) => disabled ? theme.colors.medGray : theme.colors.black};
   cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'pointer'};
   display: flex;
   font-size: 18px;
@@ -57,6 +57,13 @@ const QuizMain = () => {
   const { quizState, initQuiz, answerQuizQuestion } = QuizHandler();
   const [activeQIndex, setActiveQIndex] = useState<number | null>(null);
 
+  const successList = Object.keys(quizState).filter(key => (
+    quizState[key].value === quizState[key].correctAnswer
+  )).map(key => quizState[key]);
+  const erroredList = Object.keys(quizState).filter(key => (
+    quizState[key].value && (quizState[key].value !== quizState[key].correctAnswer)
+  )).map(key => quizState[key]);
+
   const getQuiz = async () => {
     try {
       setIsLoading(true);
@@ -70,10 +77,24 @@ const QuizMain = () => {
     }
   }
 
+  // initialization effect hook
   const initialized = !!initQuiz && !!getQuiz;
   useEffect(() => {
     getQuiz();
   }, [initialized]);
+
+  // post-answer focus hook
+  useEffect(() => {
+    const continueFinishButton = document.getElementById('continueFinishButton');
+    if (!!continueFinishButton) {
+      continueFinishButton.focus();
+    }
+  }, [successList.length, erroredList.length]);
+
+  // new question focus hook
+  useEffect(() => {
+    focusOnFirst();
+  }, [!!activeQIndex, activeQIndex]);
 
   if (error) {
     return (
@@ -103,11 +124,6 @@ const QuizMain = () => {
       return;
     }
     answerQuizQuestion(activeQuestion, { key: activeQuestionId.toString(), value: answerValue.toString() });
-    const continueFinishButton = document.getElementById('continueFinishButton');
-    if (!!continueFinishButton) {
-      console.log('focusing on continue');
-      continueFinishButton.focus();
-    }
   }
 
   const continueToNext = (e: any) => {
@@ -118,16 +134,8 @@ const QuizMain = () => {
       setIsComplete(true);
     } else {
       setActiveQIndex(activeQIndex + 1);
-      focusOnFirst();
     }
   }
-
-  const successList = Object.keys(quizState).filter(key => (
-    quizState[key].value === quizState[key].correctAnswer
-  )).map(key => quizState[key]);
-  const erroredList = Object.keys(quizState).filter(key => (
-    quizState[key].value && (quizState[key].value !== quizState[key].correctAnswer)
-  )).map(key => quizState[key]);
 
   console.log('successList: ', successList);
   console.log('erroredList: ', erroredList);

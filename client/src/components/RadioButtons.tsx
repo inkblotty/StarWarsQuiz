@@ -31,10 +31,10 @@ const StyledDiv = styled.div`
   };
 `;
 const StyledLabel = styled.label` /* lots of repeats here from StyledButton, but element type needs to be different -- remedy */
-  background-color: ${({ disabled, theme }) => disabled ? theme.colors.lightGray : theme.colors.yellow};
-  border: 2px solid ${({ theme }) => theme.colors.black};
-  box-shadow: 2px 2px 3px ${({ theme }) => theme.colors.textColor};
-  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ disabled, theme }) => disabled ? theme.colors.disabledColor : theme.colors.backgroundColor};
+  border: 2px solid ${({ theme }) => theme.colors.textColor};
+  box-shadow: ${({ disabled, theme }) => disabled ? 'none' : `2px 2px 3px ${theme.colors.textColor}`};
+  color: ${({ disabled, theme }) => disabled ? theme.colors.medGray : theme.colors.textColor};
   cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'pointer'};
   display: flex;
   font-size: ${({ theme }: ThemeProps) => theme.fontSize.main}px;
@@ -59,12 +59,12 @@ const RadioButtons = ({ correctAnswer, field, onChange, theme, ...props }: Props
   const endStyles = (optValue: string) => {
     if (value && (optValue === correctAnswer)) {
       return {
-        backgroundColor: theme.colors.green,
+        borderColor: theme.colors.green,
       };
     }
     if (value && (optValue !== correctAnswer)) {
       return {
-        backgroundColor: theme.colors.lightRed,
+        borderColor: theme.colors.lightRed,
       };
     }
     return {};
