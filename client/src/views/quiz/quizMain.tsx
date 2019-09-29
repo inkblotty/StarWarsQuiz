@@ -9,6 +9,19 @@ import RadioButtons from '../../components/RadioButtons';
 import { SingleQuizField } from '../../store/types';
 import QuizError from './QuizError';
 
+const Button = styled.button`
+  background-color: ${({ theme }) => theme.colors.yellow};
+  border: 2px solid black;
+  border-radius: 8px;
+  color: ${({ theme }) => theme.colors.black};
+  display: flex;
+  font-size: 18px;
+  height: 50px;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 80%;
+}
+`;
 const QuizTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -32,6 +45,7 @@ const QuizMain = () => {
   const [activeQIndex, setActiveQIndex] = useState<number | null>(null);
 
   const getQuiz = async () => {
+    console.log('grabbing quiz');
     try {
       setIsLoading(true);
       const quiz = await getGeneratedQuiz();
@@ -53,6 +67,7 @@ const QuizMain = () => {
     return (
       <QuizWrapper>
         <QuizError error={error || 'Quiz could not load. Please try again.'} />
+        <Button onClick={getQuiz}>Try Again</Button>
       </QuizWrapper>
     );
   }
@@ -74,7 +89,7 @@ const QuizMain = () => {
   return (
     <QuizWrapper>
       <QuizTitle>
-        Question: {activeQIndex}
+        Question: {activeQIndex + 1}
       </QuizTitle>
       <RadioButtons
         field={activeQuestion}

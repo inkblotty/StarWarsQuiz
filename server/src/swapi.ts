@@ -3,16 +3,21 @@ import { SwapiFilm, SwapiPersonWithURLFilms, SwapiPeopleResponse } from './types
 
 const API_BASE = 'https://swapi.co/api';
 
-  // optimization: save people & films to a db and
-  // only re-query when total people doens't match result in db
-  // or possibly when films list has changed,
-  // as that would change the data relevant to our quiz
+// optimization: save people & films to a db and
+// only re-query when total people doens't match result in db
+// or possibly when films list has changed,
+// as that would change the data relevant to our quiz
 
 export interface AllPeople {
   totalPeople: number;
   people: SwapiPersonWithURLFilms[];
 }
+// hot reloading shouldn't make swapi sad. sorry for statefulness
+let allPeople : AllPeople = null;
 export const getAllPeople = async () : Promise<AllPeople> => {
+  if (allPeople) {
+    return allPeople;
+  }
   try {
     const people : SwapiPersonWithURLFilms[] = [];
     const { data } : { data: SwapiPeopleResponse } = await axios.get(`${API_BASE}/people`);
@@ -23,10 +28,14 @@ export const getAllPeople = async () : Promise<AllPeople> => {
       people.push.apply(people, newData.results);
       return true;
     });
-    return Promise.all(promArray).then(() => ({
-      totalPeople: data.count,
-      people,
-    }))
+    return Promise.all(promArray).then(() => {
+      const all = {
+        totalPeople: data.count,
+        people,
+      };
+      allPeople = all;
+      return all;
+    });
   } catch (err) {
     throw err;
   }

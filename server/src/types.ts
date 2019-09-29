@@ -34,3 +34,27 @@ export interface SwapiPeopleResponse {
   next?: string;
   results: SwapiPersonWithURLFilms[];
 }
+
+// this is a JS object so it can be sent as a response; interface -> toJSON is difficult
+export const APIStructure = {
+  apiRoutes: {
+    '/newQuiz': {
+      films: 'Film[]',
+      questions: {
+        '[questionName: string]': 'QuizQuestion'
+      },
+    },
+  },
+  responseTypes: {
+    Film: {
+      id: 'number',
+      title: 'string',
+    },
+    QuizQuestion: {
+      correctAnswer: 'string',
+      label: 'string',
+      name: 'string',
+      options: `{ label: string, value: string }[]`,
+    }
+  }
+};

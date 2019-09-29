@@ -30,6 +30,9 @@ const StyledDiv = styled.div`
   };
 `;
 const StyledLabel = styled.label`
+  backgroundColor: ${({ theme }) => theme.colors.yellow};
+  border: 2px solid ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
   cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'pointer'};
   display: flex;
   font-size: ${({ theme }: ThemeProps) => theme.fontSize.main}px;
