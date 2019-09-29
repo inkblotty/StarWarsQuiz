@@ -7,8 +7,8 @@
     "build": "npm run build:client && npm run build:server",
     "build:client": "cd ./client && npm run build && cd ..",
     "build:server": "cd ./server && npm run build && cd ..",
-    "buildAndStart:server": "npm run build:server && cd ./server && npm run start",
-    "buildAndStart:client": "npm run build:client && cd ./client && npm run start",
+    "quickStart:server": "cd ./server && npm i && npm run build && cd ./server && npm run start",
+    "quickStart:client": "cd ./client && npm i && npm run build && cd ./client && npm run start",
     "test": "cd client && npm run test"
   },
   "repository": {

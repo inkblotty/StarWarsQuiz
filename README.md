@@ -43,13 +43,13 @@ You'll need two terminal windows to run this.
 
 Server:
 
-`npm run buildAndStart:server`
+`npm run quickStart:server`
 
 The server must be built / compiled before serving.
 
 Client:
 
-`npm run buildAndStart:client`
+`npm run quickStart:client`
 
 Building the client is not absolutely necessary before starting.
 
