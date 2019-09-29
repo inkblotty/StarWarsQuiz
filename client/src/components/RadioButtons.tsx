@@ -1,12 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 import { ThemeProps } from '../lib/theme';
 import { FormField } from './types';
 
 interface Props {
+  correctAnswer: string;
   field: FormField;
-  onChange: (e : Event) => void;
+  onChange: (value: string | number) => void;
+  theme: ThemeProps['theme'];
 };
 
 const StyledFieldset = styled.fieldset`
@@ -22,14 +24,17 @@ const StyledLegend = styled.legend`
 `;
 const StyledDiv = styled.div`
   display: flex;
+  margin-top: 8px;
   :focus-within label {
-    border: 1px solid ${({ theme }) => theme.colors.focusColor};
-    border-radius: ${({ theme }) => theme.spacingUnit}px;
-    box-shadow: 0 0 3px ${({ theme }) => theme.colors.focusColor};
+    background-color: ${({ theme }) => theme.colors.focusColor};
     margin: 0 auto;
   };
 `;
-const StyledLabel = styled.label`
+const StyledLabel = styled.label` /* lots of repeats here from StyledButton, but element type needs to be different -- remedy */
+  background-color: ${({ disabled, theme }) => disabled ? theme.colors.disabledColor : theme.colors.backgroundColor};
+  border: 2px solid ${({ theme }) => theme.colors.textColor};
+  box-shadow: ${({ disabled, theme }) => disabled ? 'none' : `2px 2px 3px ${theme.colors.textColor}`};
+  color: ${({ disabled, theme }) => disabled ? theme.colors.medGray : theme.colors.textColor};
   cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'pointer'};
   display: flex;
   font-size: ${({ theme }: ThemeProps) => theme.fontSize.main}px;
@@ -48,8 +53,29 @@ const StyledRadio = styled.input`
     outline: none;
   };
 `;
-const RadioButtons = ({ field, onChange, ...props }: Props) => {
+const RadioButtons = ({ correctAnswer, field, onChange, theme, ...props }: Props) => {
   const { disabled, errored, label, name, options = [], value } = field;
+  const isDisabled = disabled || !!value;
+  const endStyles = (optValue: string) => {
+    if (value && (optValue === correctAnswer)) {
+      return {
+        borderColor: theme.colors.green,
+      };
+    }
+    if (value && (optValue !== correctAnswer)) {
+      return {
+        borderColor: theme.colors.lightRed,
+      };
+    }
+    return {};
+  };
+
+  const captureKeyPress = (e : any, val : string | number) => {
+    if (e && e.key && (e.key === 'Enter' || (e.key === 'Space'))) {
+      onChange(val);
+    }
+  }
+
   return (
     <StyledFieldset>
       <StyledLegend>{label}</StyledLegend>
@@ -58,14 +84,18 @@ const RadioButtons = ({ field, onChange, ...props }: Props) => {
           key={`${name}-radio-opt-${i}`}
         >
           <StyledLabel
-            disabled={disabled}
-            htmlFor={opt.name}
+            disabled={isDisabled}
+            htmlFor={opt.value}
+            onClick={isDisabled ? () => '' : (e: any) => onChange(opt.value)}
+            onKeyPress={e => captureKeyPress(e, opt.value)}
+            style={endStyles(opt.value.toString())}
+            tabIndex={isDisabled ? -1 : 1}
           >
             <StyledRadio
-              aria-disabled={disabled}
+              aria-disabled={isDisabled}
               aria-invalid={errored}
-              disabled={disabled}
-              checked={opt.name === value}
+              disabled={isDisabled}
+              checked={opt.value === value}
               type='radio'
             />
             {opt.label}
@@ -76,4 +106,4 @@ const RadioButtons = ({ field, onChange, ...props }: Props) => {
   );
 };
 
-export default RadioButtons;
+export default withTheme(RadioButtons);

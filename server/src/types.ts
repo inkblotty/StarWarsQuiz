@@ -1,6 +1,6 @@
 export interface SwapiFilm {
   title: string;
-  id: number;
+  url: string;
 }
 
 interface OriginSwapiPerson {
@@ -28,3 +28,33 @@ export interface SwapiPersonWithURLFilms extends OriginSwapiPerson {
 export interface SwapiPerson extends OriginSwapiPerson {
   films: SwapiFilm[];
 }
+
+export interface SwapiPeopleResponse {
+  count: number;
+  next?: string;
+  results: SwapiPersonWithURLFilms[];
+}
+
+// this is a JS object so it can be sent as a response; interface -> toJSON is difficult
+export const APIStructure = {
+  apiRoutes: {
+    '/newQuiz': {
+      films: 'Film[]',
+      questions: {
+        '[questionName: string]': 'QuizQuestion'
+      },
+    },
+  },
+  responseTypes: {
+    Film: {
+      id: 'number',
+      title: 'string',
+    },
+    QuizQuestion: {
+      correctAnswer: 'string',
+      label: 'string',
+      name: 'string',
+      options: `{ label: string, value: string }[]`,
+    }
+  }
+};

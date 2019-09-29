@@ -1,0 +1,24 @@
+{
+  "name": "starwarsquiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd ./client && npm run build && cd ..",
+    "build:server": "cd ./server && npm run build && cd ..",
+    "quickStart:server": "cd ./server && npm i && npm run build && cd ./server && npm run start",
+    "quickStart:client": "cd ./client && npm i && npm run build && cd ./client && npm run start",
+    "test": "cd client && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inkblotty/StarWarsQuiz.git"
+  },
+  "author": "inkblotty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inkblotty/StarWarsQuiz/issues"
+  },
+  "homepage": "https://github.com/inkblotty/StarWarsQuiz#readme"
+}

@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
-import { quizReducer } from '../store/reducers';
-import { answerQuizQuestion, initQuiz } from '../store/actions';
-import { QuizState, SingleQuizField, SingleAnswerField } from '../store/types';
+import { quizReducer } from './reducers';
+import { answerQuizQuestion, initQuiz } from './actions';
+import { QuizState, SingleQuizField, SingleAnswerField } from './types';
 
 export interface QuizHandlerOutput {
   answerQuizQuestion: (question : SingleQuizField, answer : SingleAnswerField) => void;

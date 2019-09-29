@@ -36,10 +36,13 @@ const StyledLabel = styled.label`
   position: relative;
   userSelect: none;
 `;
+const StyledToggleBackground = styled.div`
+  display: flex;
+`;
 const SwitchLabel = styled.span`
   background-color: ${({ theme, itemProp }) => itemProp === 'false' ? theme.colors.disabledColor : theme.colors.yellow};
   border-radius: ${switchHeight}px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+  box-shadow: ${({ itemProp }) => itemProp === 'false' ? 'inset 0 0 5px rgba(0,0,0,0.5)' : 'none'};
   display: inline-block;
   height: ${switchHeight}px;
   justify-content: flex-start;
@@ -51,7 +54,7 @@ const SwitchHandle = styled.span`
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.3);
   display: inline-block;
   height: ${switchHeight - 4}px;
-  margin-left: -${switchHeight * 2 - 4}px;
+  margin-left: 4px;
   margin-top: 2px;
   position: absolute;
   transition: transform ease 0.3s;
@@ -96,7 +99,7 @@ const ToggleInput = ({ field, onChange } : Props) => {
           Press Space Bar to toggle on or off.
         </span>
       </StyledHiddenSpan>
-      <div className='toggle-background'>
+      <StyledToggleBackground className='toggle-background'>
         <SwitchLabel
           itemProp={isActive.toString()}
           data-on={'On'}
@@ -107,7 +110,7 @@ const ToggleInput = ({ field, onChange } : Props) => {
           role='presentation'
           aria-hidden
         />
-      </div>
+      </StyledToggleBackground>
     </StyledLabel>
   )
 }
