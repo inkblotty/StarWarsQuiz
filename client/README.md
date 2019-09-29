@@ -1,32 +1,4 @@
-# Star Wars Quiz
-
-A React project integrating the [Star Wars API](https://swapi.co/).
-
-## Features
-- Randomly generated quiz
-  * questions from querying the API
-
-- Responsive interface
-
-- Accessible interface, incl. keyboard navigation
-
-- Dark Side Mode / Light Side Mode
-
-### Libraries
-- Bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
-
-- [TypeScript](https://www.typescriptlang.org/docs/home.html) typings
-
-- [React Hooks](https://reactjs.org/docs/hooks-reference.html) store / state management
-
-- Modular [Styled-Components](https://www.styled-components.com/)
-
-- [Jest](https://jestjs.io/) tests
-
-### Later
-- Leaderboard of best quiz takersset up on remote server and database
-
-- Different route for quiz, settings, leaderboard
+## Star Wars Quiz - Web Client
 
 ## Available Scripts
 

@@ -32,6 +32,7 @@ const QuizWrapper = styled.div`
   margin: 0 auto;
   max-width: 650px;
   min-width: 300px;
+  overflow: scroll;
   padding: 20px 23px;
 `;
 const QuizMain = () => {
@@ -51,6 +52,8 @@ const QuizMain = () => {
   const getQuiz = async () => {
     try {
       setIsLoading(true);
+      setError(null);
+      setIsComplete(false);
       const quiz = await getGeneratedQuiz();
       initQuiz({ ...quiz.data.questions });
       setActiveQIndex(0);
@@ -105,7 +108,7 @@ const QuizMain = () => {
     return (
       <QuizWrapper>
         <QuizSummary
-          erroredList={erroredList}
+          quizState={quizState}
           restartQuiz={restartQuiz}
           successList={successList}
         />
