@@ -15,13 +15,15 @@ export interface AllPeople {
 // hot reloading shouldn't make swapi sad. sorry for statefulness
 let allPeople : AllPeople = null;
 export const getAllPeople = async () : Promise<AllPeople> => {
-  if (allPeople) {
-    return allPeople;
-  }
   try {
     const people : SwapiPersonWithURLFilms[] = [];
     const { data } : { data: SwapiPeopleResponse } = await axios.get(`${API_BASE}/people`);
     const totalPages = Math.ceil(data.count / data.results.length);
+
+    if (allPeople && allPeople.totalPeople === data.count) {
+      return allPeople;
+    }
+
     people.push.apply(people, data.results);
     const promArray = Array.from({ length: totalPages }).map(async (_, i) => {
       const { data: newData } : { data: SwapiPeopleResponse } = await axios.get(`${API_BASE}/people/?page=${i+1}`);

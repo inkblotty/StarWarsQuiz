@@ -55,7 +55,6 @@ export const turnPersonIntoQuestion = (person : SwapiPerson, films: SwapiFilm[])
   })();
 
   // randomize options in return
-
   return {
     correctAnswer,
     label,
