@@ -21,14 +21,13 @@ export const rgba = (hex : string, alpha : number) : string => {
   return hex;
 };
 
-const focusables = 'button:not([disabled]),textarea:not([disabled]),a:not([disabled]),\
+const focusables = `button:not([disabled]),textarea:not([disabled]),a:not([disabled]),\
 select:not([disabled]),[tabindex]:not([tabindex="-1"]),\
-input:not([disabled]):not([type="hidden"]):not([hidden]),[role="option"]';
+input:not([disabled]):not([type="hidden"]):not([hidden]),[role="option"]`;
 export const focusOnFirst = () => {
   if (window && document) {
     const allElems = document.querySelectorAll(focusables);
     if (allElems && !!allElems[0]) {
-      console.log('focusing on : ', allElems[0]);
       // @ts-ignore
       allElems[0].focus();
     }

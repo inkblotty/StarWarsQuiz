@@ -2,32 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { getGeneratedQuiz } from '../../requests/api';
-import { ThemeProps } from '../../lib/theme';
 import { focusOnFirst, rgba } from '../../lib/helpers';
 import QuizHandler from '../../store';
 import Loading from '../../components/Loading';
 import RadioButtons from '../../components/RadioButtons';
+import Button from '../../components/Button';
 import { SingleQuizField } from '../../store/types';
+
+import QuizSummary from './QuizSummary';
 import QuizError from './QuizError';
 
-export const StyledButton = styled.button`
-  background-color: ${({ disabled, theme }) => disabled ? theme.colors.disabledColor : theme.colors.yellow};
-  border: 2px solid ${({ theme }) => theme.colors.black };
-  border-radius: 8px;
-  box-shadow: ${({ disabled, theme }) => disabled ? 'none' : `2px 2px 3px ${theme.colors.textColor}`};
-  color: ${({ disabled, theme }) => disabled ? theme.colors.medGray : theme.colors.black};
-  cursor: ${({ disabled }: { disabled?: boolean }) => disabled ? 'not-allowed' : 'pointer'};
-  display: flex;
-  font-size: 18px;
-  height: 50px;
-  justify-content: center;
-  text-transform: uppercase;
-  width: 80%;
-  :focus {
-    background-color: ${({ theme }) => theme.colors.focusColor};
-  }
-}
-`;
 const QuizTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -93,14 +77,19 @@ const QuizMain = () => {
 
   // new question focus hook
   useEffect(() => {
+    console.log('focusing on first');
     focusOnFirst();
-  }, [!!activeQIndex, activeQIndex]);
+  }, [!isLoading, activeQIndex]);
+
+  const restartQuiz = () => {
+    getQuiz();
+  }
 
   if (error) {
     return (
       <QuizWrapper>
         <QuizError error={error || 'Quiz could not load. Please try again.'} />
-        <StyledButton onClick={getQuiz}>Try Again</StyledButton>
+        <Button onClick={getQuiz}>Try Again</Button>
       </QuizWrapper>
     );
   }
@@ -111,6 +100,17 @@ const QuizMain = () => {
         <Loading />
       </QuizWrapper>
     );
+  }
+  if (isComplete) {
+    return (
+      <QuizWrapper>
+        <QuizSummary
+          erroredList={erroredList}
+          restartQuiz={restartQuiz}
+          successList={successList}
+        />
+      </QuizWrapper>
+    )
   }
   
   const activeQuestionId = Object.keys(quizState)[activeQIndex];
@@ -156,7 +156,7 @@ const QuizMain = () => {
             {activeQuestion.errored ? 'Wrong :(' : 'Correct! :)'}
           </QuizHelperText>
         ) : <QuizHelperText />}
-      <StyledButton
+      <Button
         disabled={!activeQuestion.value}
         id='continueFinishButton'
         onClick={continueToNext}
@@ -165,7 +165,7 @@ const QuizMain = () => {
           ? 'Finish Quiz'
           : 'Next Question'
         }
-      </StyledButton>
+      </Button>
     </QuizWrapper>
   )
 }
