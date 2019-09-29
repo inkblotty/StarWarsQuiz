@@ -1,5 +1,8 @@
-import { SwapiFilm, SwapiPerson, SwapiPersonWithURLFilms } from './types';
+import { SwapiFilm, SwapiPerson, SwapiPersonWithURLFilms } from '../types';
 
+function filmIdFromUrl(url : string) {
+  return url.replace(/\D/g, '');
+}
 function shuffleArray(array : any[]) {
   let temp = [...array];
   for (let i = temp.length - 1; i > 0; i--) {
@@ -13,7 +16,7 @@ export const formatPersonWithFilms = (person : SwapiPersonWithURLFilms, films : 
     const newFilms = person.films.map((film : string) =>
       films.find(x => {
         if (typeof film === 'string') {
-          return (x.id).toString() === film.replace(/\D/g, '')
+          return (x.url).toString() === film
         }
         return false;
       })
@@ -36,21 +39,21 @@ export const turnPersonIntoQuestion = (person : SwapiPerson, films: SwapiFilm[])
   let correctAnswer;
   const label = (() => {
     if (!negativeFilms.length) {
-      person.films.slice(0, 3).forEach(film => options.push({ label: film.title, value: `film-${film.id }` }));
+      person.films.slice(0, 3).forEach(film => options.push({ label: film.title, value: `film-${filmIdFromUrl(film.url)}` }));
       options.push({ label: 'All of the above', value: 'all' });
       correctAnswer = 'all';
       return `Which film did ${person.name} appear in?`;
     }
     if (negativeFilms.length < 2) {
-      options.push({ label: negativeFilms[0].title, value: `film-${negativeFilms[0].id }` });
-      options.push({ label: person.films[0].title, value: `film-${person.films[0].id }` });
-      options.push({ label: person.films[1].title, value: `film-${person.films[1].id }` });
-      correctAnswer = `film-${negativeFilms[0].id}`;
+      options.push({ label: negativeFilms[0].title, value: `film-${filmIdFromUrl(negativeFilms[0].url)}` });
+      options.push({ label: person.films[0].title, value: `film-${filmIdFromUrl(person.films[0].url)}` });
+      options.push({ label: person.films[1].title, value: `film-${filmIdFromUrl(person.films[1].url)}` });
+      correctAnswer = `film-${filmIdFromUrl(negativeFilms[0].url)}`;
       return `Which film did ${person.name} NOT appear in?`;
     }
-    options.push({ label: person.films[0].title, value: `film-${person.films[0].id }` });
-    negativeFilms.slice(0, 3).forEach(film => options.push({ label: film.title, value: `film-${film.id }` }));
-    correctAnswer = `film-${person.films[0].id}`;
+    options.push({ label: person.films[0].title, value: `film-${filmIdFromUrl(person.films[0].url)}` });
+    negativeFilms.slice(0, 3).forEach(film => options.push({ label: film.title, value: `film-${filmIdFromUrl(film.url)}` }));
+    correctAnswer = `film-${filmIdFromUrl(person.films[0].url)}`;
     return `Which of these films did ${person.name} appear in?`;
   })();
 

@@ -1,18 +1,18 @@
 import axios from 'axios';
-import { SwapiFilm, SwapiPersonWithURLFilms, SwapiPeopleResponse } from './types';
+import { SwapiFilm, SwapiPersonWithURLFilms, SwapiPeopleResponse } from '../types';
 
 const API_BASE = 'https://swapi.co/api';
 
 // optimization: save people & films to a db and
 // only re-query when total people doens't match result in db
 // or possibly when films list has changed,
-// as that would change the data relevant to our quiz
+// as that would change the data relevant to our quiz.
 
 export interface AllPeople {
   totalPeople: number;
   people: SwapiPersonWithURLFilms[];
 }
-// hot reloading shouldn't make swapi sad. sorry for statefulness
+// hot reloading on client shouldn't make swapi sad
 let allPeople : AllPeople = null;
 export const getAllPeople = async () : Promise<AllPeople> => {
   try {
@@ -20,7 +20,7 @@ export const getAllPeople = async () : Promise<AllPeople> => {
     const { data } : { data: SwapiPeopleResponse } = await axios.get(`${API_BASE}/people`);
     const totalPages = Math.ceil(data.count / data.results.length);
 
-    if (allPeople && allPeople.totalPeople === data.count) {
+    if (allPeople && allPeople.totalPeople === data.count) { // replace with db query here
       return allPeople;
     }
 
@@ -43,10 +43,10 @@ export const getAllPeople = async () : Promise<AllPeople> => {
   }
 }
 
-export const getAllFilmsWithId = async () : Promise<SwapiFilm[]> => {
+export const getAllFilmsWithUrl = async () : Promise<SwapiFilm[]> => {
   try {
     const { data: films } : { data: { results: SwapiFilm[] } } = await axios.get(`${API_BASE}/films`);
-    return films.results.map((film, index) => ({ title: film.title, id: index + 1 }));
+    return films.results.map(film => ({ title: film.title, url: film.url }));
   } catch (err) {
     throw err;
   }

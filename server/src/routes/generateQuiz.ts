@@ -1,28 +1,28 @@
-import { getAllFilmsWithId, getAllPeople, AllPeople } from './swapi';
-import { formatPersonWithFilms, turnPersonIntoQuestion } from './requestHelpers';
-import { SwapiPerson, SwapiPersonWithURLFilms } from './types';
+import { getAllPeople, AllPeople, getAllFilmsWithUrl } from '../lib/swapi';
+import { formatPersonWithFilms, turnPersonIntoQuestion } from '../lib/requestHelpers';
+import { SwapiPerson, SwapiPersonWithURLFilms } from '../types';
 
 const makeRandomNum = (upperLimit : number) => Math.floor(Math.random() * upperLimit);
 
 const generateQuiz = async (numQuestions = 10) => {
-  console.log('\ngenerating quiz');
+  // console.log('\ngenerating quiz');
 
   try {
     // find all people, filter by id below
     const { totalPeople, people } : AllPeople = await getAllPeople();
 
-    console.log('\n totalPeople: ', totalPeople);
+    // console.log('\ntotalPeople: ', totalPeople);
 
     // grab all films
-    const films = await getAllFilmsWithId();
+    const films = await getAllFilmsWithUrl();
 
-    console.log('\n total films: ', films.length);
+    // console.log('\nall films: ', films);
 
     // grab numQuestions people, random indices
     const startingIndices = Array.from({ length: numQuestions })
       .map(() => makeRandomNum(totalPeople));
 
-    console.log('\nstartingIndices: ', startingIndices);
+    // console.log('\nstartingIndices: ', startingIndices);
 
     const finalIndices = startingIndices.reduce((a, b) => {
       if (!a.includes(b)) {
@@ -38,7 +38,7 @@ const generateQuiz = async (numQuestions = 10) => {
       return [...a, newRandom];
     }, []);
 
-    console.log('\nfinalIndices: ', finalIndices);
+    // console.log('\nfinalIndices (no duplicates): ', finalIndices);
 
     // format each person as a question
     const questions = people
@@ -46,7 +46,7 @@ const generateQuiz = async (numQuestions = 10) => {
       .map((person : SwapiPersonWithURLFilms) => formatPersonWithFilms(person, films))
       .map((person : SwapiPerson) => turnPersonIntoQuestion(person, films));
 
-    console.log('questions length: ', questions.length);
+    console.log('\nquestions length: ', questions.length);
 
     return {
       films,

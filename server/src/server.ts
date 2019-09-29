@@ -1,5 +1,5 @@
 import express from 'express';
-import generateQuiz from './generateQuiz';
+import generateQuiz from './routes/generateQuiz';
 import { APIStructure } from './types';
 const app = express()
 const port = 8080;
@@ -13,7 +13,6 @@ app.use(function(req, res, next) {
 
 app.get('/api/newQuiz', async (req, res) => {
   try {
-    console.log('\n requesting quiz');
     const quiz = await generateQuiz();
     res.json(quiz);
   } catch (err) {
@@ -26,4 +25,3 @@ app.get('*', (_req, res) => res.json(JSON.parse(JSON.stringify(APIStructure))));
 const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
 });
-server.timeout = 8000;

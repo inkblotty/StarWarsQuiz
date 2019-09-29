@@ -1,6 +1,6 @@
 export interface SwapiFilm {
   title: string;
-  id: number;
+  url: string;
 }
 
 interface OriginSwapiPerson {
